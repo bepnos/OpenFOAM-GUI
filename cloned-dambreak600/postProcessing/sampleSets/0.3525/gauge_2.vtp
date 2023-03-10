@@ -1,0 +1,23 @@
+<?xml version='1.0'?>
+<!-- time='0.3525' -->
+<VTKFile type='PolyData' version='0.1' byte_order='LittleEndian' header_type='UInt64'>
+  <PolyData>
+    <FieldData>
+      <DataArray type='Float32' Name='TimeValue' NumberOfTuples='1' format='binary'>
+BAAAAAAAAADherQ+
+      </DataArray>
+    </FieldData>
+    <Piece NumberOfPoints='46'>
+      <Points>
+        <DataArray type='Float32' Name='Points' NumberOfComponents='3' format='binary'>
+KAIAAAAAAADNzEw+BoEVPQrXozvNzEw+iUFgPQrXozvNzEw+BoGVPQrXozvNzEw+SOG6PQrXozvNzEw+iUHgPQrXozvNzEw+5dACPgrXozvNzEw+BoEVPgrXozvNzEw+0C4gPgrXozvNzEw+mdwqPgrXozvNzEw+Y4o1PgrXozvNzEw+LDhAPgrXozvNzEw+9uVKPgrXozvNzEw+wJNVPgrXozvNzEw+iUFgPgrXozvNzEw+U+9qPgrXozvNzEw+HJ11PgrXozvNzEw+cyWAPgrXozvNzEw+WHyFPgrXozvNzEw+PdOKPgrXozvNzEw+ISqQPgrXozvNzEw+BoGVPgrXozvNzEw+69eaPgrXozvNzEw+0C6gPgrXozvNzEw+tYWlPgrXozvNzEw+mdyqPgrXozvNzEw+fjOwPgrXozvNzEw+Y4q1PgrXozvNzEw+SOG6PgrXozvNzEw+LDjAPgrXozvNzEw+EY/FPgrXozvNzEw+9uXKPgrXozvNzEw+2zzQPgrXozvNzEw+wJPVPgrXozvNzEw+pOraPgrXozvNzEw+iUHgPgrXozvNzEw+bpjlPgrXozvNzEw+U+/qPgrXozvNzEw+OEbwPgrXozvNzEw+HJ31PgrXozvNzEw+AfT6PgrXozvNzEw+cyUAPwrXozvNzEw+5dACPwrXozvNzEw+WHwFPwrXozvNzEw+yicIPwrXozvNzEw+PdMKPwrXozvNzEw+r34NPwrXozs=
+        </DataArray>
+      </Points>
+      <PointData>
+        <DataArray type='Float32' Name='alpha.water' format='binary'>
+uAAAAAAAAAAg/X8/Ff5/P3n/fz/1/38/AACAPwAAgD8AAIA/AACAP/r/fz/o30Q/DMiUPk+DsDyMz5M0qyMhNIsT1DGsQ7EwB3SoMFLDVTCRWt8vNYCwLzPYky9+v4EvXRuxLx78hTAZZB8xwVJWMdGBPzEVYegwBn9hMMVOMjD1O/YvvtchL43xPC++hL0xbxDdMmsYRzMv3mwz/SkmM90aIzLLU0auF/GcrhsKjK5xEzuu10i9rUVYD62TdBys
+        </DataArray>
+      </PointData>
+    </Piece>
+  </PolyData>
+</VTKFile>

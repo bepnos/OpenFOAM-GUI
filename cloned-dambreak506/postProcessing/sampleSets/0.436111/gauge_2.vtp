@@ -1,0 +1,23 @@
+<?xml version='1.0'?>
+<!-- time='0.436111' -->
+<VTKFile type='PolyData' version='0.1' byte_order='LittleEndian' header_type='UInt64'>
+  <PolyData>
+    <FieldData>
+      <DataArray type='Float32' Name='TimeValue' NumberOfTuples='1' format='binary'>
+BAAAAAAAAAD1Sd8+
+      </DataArray>
+    </FieldData>
+    <Piece NumberOfPoints='41'>
+      <Points>
+        <DataArray type='Float32' Name='Points' NumberOfComponents='3' format='binary'>
+7AEAAAAAAADNzEw+j5pEPQrXozvNzEw+aeB4PQrXozvNzEw+IpOWPQrXozvNzEw+D7awPQrXozvNzEw+/NjKPQrXozvNzEw+6fvkPQrXozvNzEw+1h7/PQrXozvNzEw+4qAMPgrXozvNzEw+WLIZPgrXozvNzEw+z8MmPgrXozvNzEw+RtUzPgrXozvNzEw+vOZAPgrXozvNzEw+M/hNPgrXozvNzEw+qQlbPgrXozvNzEw+IBtoPgrXozvNzEw+lyx1PgrXozvNzEw+Bx+BPgrXozvNzEw+wqeHPgrXozvNzEw+fTCOPgrXozvNzEw+OLmUPgrXozvNzEw+9EGbPgrXozvNzEw+r8qhPgrXozvNzEw+alOoPgrXozvNzEw+JtyuPgrXozvNzEw+4WS1PgrXozvNzEw+nO27PgrXozvNzEw+WHbCPgrXozvNzEw+E//IPgrXozvNzEw+zofPPgrXozvNzEw+iRDWPgrXozvNzEw+RZncPgrXozvNzEw+ACLjPgrXozvNzEw+u6rpPgrXozvNzEw+dzPwPgrXozvNzEw+Mrz2PgrXozvNzEw+7UT9PgrXozvNzEw+1OYBPwrXozvNzEw+MisFPwrXozvNzEw+kG8IPwrXozvNzEw+7bMLPwrXozvNzEw+S/gOPwrXozs=
+        </DataArray>
+      </Points>
+      <PointData>
+        <DataArray type='Float32' Name='alpha.water' format='binary'>
+pAAAAAAAAADq/38/1v9/P236fz9KpVg/oTuyPtCT5jp9SI85MaZcOh0LljoYsnM6KfC6OThF0C2BXossUJ5xLO9WVSyb2d4sH2OLMd69izEML6AueXU9L7POey/9AE4vS9i8LgB9Yy1sgKQjRBOjI27mcCHitNsdsQHPHGUiCBsgFyQZ9lMFGEWG0xZ4HWIViHGnEyEAtRGcmosPBKUPDQSSMgpA3ugGp40pAg==
+        </DataArray>
+      </PointData>
+    </Piece>
+  </PolyData>
+</VTKFile>

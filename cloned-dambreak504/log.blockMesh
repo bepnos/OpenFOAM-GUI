@@ -1,0 +1,40 @@
+/*---------------------------------------------------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  2206                                  |
+|   \\  /    A nd           | Website:  www.openfoam.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+Build  : _76d719d1-20220624 OPENFOAM=2206 version=2206
+Arch   : "LSB;label=32;scalar=64"
+Exec   : blockMesh
+Date   : Nov 28 2022
+Time   : 17:06:16
+Host   : LAPTOP-2J3LPIFO
+PID    : 7194
+I/O    : uncollated
+Case   : /home/bepnos/PyFoamTesting/cloned-dambreak504
+nProcs : 1
+trapFpe: Floating point exception trapping enabled (FOAM_SIGFPE).
+fileModificationChecking : Monitoring run-time modified files using timeStampMaster (fileModificationSkew 5, maxFileModificationPolls 20)
+allowSystemOperations : Allowing user-supplied system call operations
+
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+Create time
+
+Creating block mesh from "system/blockMeshDict"
+Creating block edges
+No non-planar block faces defined
+Creating topology blocks
+
+
+--> FOAM FATAL IO ERROR: (openfoam-2206)
+Wrong token type - expected word, found on line 121: punctuation ')'
+
+file: system/blockMeshDict.blocks at line 121.
+
+    From Foam::Istream& Foam::operator>>(Foam::Istream&, Foam::word&)
+    in file primitives/strings/word/wordIO.C at line 71.
+
+FOAM exiting
+

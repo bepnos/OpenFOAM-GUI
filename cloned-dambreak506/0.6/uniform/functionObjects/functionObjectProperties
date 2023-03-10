@@ -1,0 +1,53 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  2206                                  |
+|   \\  /    A nd           | Website:  www.openfoam.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    arch        "LSB;label=32;scalar=64";
+    class       dictionary;
+    location    "0.6/uniform/functionObjects";
+    object      functionObjectProperties;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+cdf7e925f5746741c316f5fbcf39ad0dfca90775
+{
+    sampleSets
+    {
+        scalar
+        {
+            average(gauge_1,alpha.water) -2.408422791477255e-14;
+            min(gauge_1,alpha.water) -5.524348070549799e-14;
+            max(gauge_1,alpha.water) -2.686685722248124e-15;
+            average(gauge_2,alpha.water) 0.07156732009061781;
+            min(gauge_2,alpha.water) 1.134591192755176e-35;
+            max(gauge_2,alpha.water) 0.9999463426361219;
+            average(alpha.water) 0.0637882635590263;
+            min(alpha.water) -5.524348070549799e-14;
+            max(alpha.water) 0.9999463426361219;
+        }
+        label
+        {
+            size(gauge_1,alpha.water) 5;
+            size(gauge_2,alpha.water) 41;
+            size(alpha.water) 46;
+        }
+    }
+}
+
+sampleSets
+{
+    alpha.water
+    {
+        file            "<case>/postProcessing/sampleSets/0.6/gauge_2.vtp";
+    }
+}
+
+
+// ************************************************************************* //
