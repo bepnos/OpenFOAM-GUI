@@ -12,3 +12,4 @@ The main.py file contains de Python code to change te parameters of the Dambreak
 
 Some example variations are stored in the cloned-dambreak directories, these are viewable in software like ParaView. Simply open the .foam file in ParaView and choose how you want to view the case. 
 
+Lastly the web directory contains a website version of the GUI using docker containers and the Flask library. 
