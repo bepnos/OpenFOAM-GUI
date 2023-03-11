@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>CW3A2-info</title>
+{% endblock %}
+
+{% block body %}
+    <h1> Over dit project </h1>
+    <p> De technologie op vlak van rekenkracht van computers stond de afgelopen decennia niet stil. Berekeningen, groots in complexiteit, kunnen in enkele seconden uitgevoerd worden door onze hedendaagse computers. Enig probleem: deze computers passen niet in onze broekzak en hebben we dus niet op elk ogenblik binnen handbereik. Smartphones daarentegen… De oplossing luidt als volgt: we gebruiken onze smartphone om te communiceren met deze krachtigere computers die op een vaste plaats gepositioneerd staan. </p>
+    <h2>Wat demonstreren wij ?</h2>
+    <p> Om dit te laten zien aan jullie, hebben wij een app en website ontworpen waarin u als gebruiker bepaalde parameters kan instellen om het breken van een dam te simuleren. Deze parameters worden vervolgens verzonden naar een externe computer die met deze parameters aan de slag gaat en de resultaten terugstuurt richting de smartphone. Nu kunnen we, als gebruiker, deze resultaten gaan visualiseren in een animatie.</p>
+    {% if info.is_caselijst() %}
+        <span class="caselijsttitel">Dit project laat u toe om verschillende simulaties uit te voeren:</span>
+        <ul class="caselijst">
+            {%for case,locatie in info.cases.items() %}
+                {% if locatie != info.huidige_case_locatie %}
+                    <li> <a class="caselink" href="{{ locatie }}">{{ case }}</a></li>
+                {% else %}
+                    <li><strong>{{ case }}</strong> (geselecteerd)</li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+    {% endif %}
+            {% for i in range(info.witruimte_onderaan) %}
+        <br>
+        {% endfor %}
+{% endblock %}

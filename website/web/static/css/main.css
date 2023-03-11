@@ -1,0 +1,60 @@
+body {
+    margin: 3vw;
+    background-color: #2dbffc;
+    font-family: sans-serif;
+    align-content: center;
+    text-align: left;
+
+}
+p {
+   color: black;
+}
+
+.WeergaveResultaatAfbeelding {
+
+    height: min(500px, 94vw - 20px, 94vh - 20px);
+    width: min(500px, 94vw - 20px, 94vh - 20px);
+}
+
+footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+    height: 5%;
+  background-color: cornflowerblue;
+  text-align: center;
+    text-align-all: center;
+  padding: 5px;
+  color: black;
+
+}
+.parametersInvoer{
+    align-self: center;
+    text-align: left;
+    padding: 5%;
+
+}
+.parameterForm{
+
+}
+.bereken{
+    background-color: wheat;
+    color: black;
+    text-align: center;
+}
+select{
+    background-color: wheat;
+    color: black;
+    text-align: center;
+}
+button{
+    color: black;
+    background-color: red;
+}
+
+.glijdendeInvoer {
+    width: 95%;
+    align-self: center;
+    background-color: #2dbffc;
+}

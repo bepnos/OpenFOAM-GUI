@@ -1,0 +1,201 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>CW3A2</title>
+
+{% endblock %}
+
+{% block body %}
+    <div class="main">
+        <br>
+        <h1>{{ info.titel }}</h1>
+        <div id="uitleg">
+            <p>
+                {{ info.inleiding }}
+            </p>
+            <p>
+                {{ info.instructies }}
+            </p>
+
+            {% if info.is_caselijst() %}
+                <span class="caselijsttitel">Dit project laat u toe om verschillende simulaties uit te voeren:</span>
+                <ul class="caselijst">
+                    {%for case,locatie in info.cases.items() %}
+                        {% if locatie != info.huidige_case_locatie %}
+                            <li> <a class="caselink" href="{{ locatie }}">{{ case }}</a></li>
+                        {% else %}
+                            <li><strong>{{ case }}</strong> (geselecteerd)</li>
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+            {% endif %}
+
+            <a href="/over-dit-project">meer over dit project</a>
+        </div>
+        <div class="parametersInvoer">
+            <form method="POST" class="parameterForm" id="inputform">
+                {%for parameter in params%}
+                    {% if parameter.type == "standaard" %}
+                        <div class="glijdendeInvoer">
+                            <label for="{{ parameter.naam}}">{{ parameter.naam }}:      {{ parameter.bereik_string() }}</label><br>
+                            <button type="button" id="{{parameter.naam_geen_spatie()}}herstel">X</button>
+                            <input type="range" name="{{parameter.naam}}" min="{{ parameter.min_waarde }}" max="{{ parameter.max_waarde }}" value="{{ parameter.laatste_waarde }}" class="slider" step="{{ parameter.stap }}" id="{{ parameter.naam }}Glijdendeinput">
+                            <label>: <span id="{{ parameter.naam}}output"></span></label>
+                        </div>
+                    {% elif parameter.type == "plaats" %}
+                            <label for="{{ parameter.naam}}">{{ parameter.naam }}:      {{ parameter.bereik_string() }}</label><br>
+                            <button type="button" id="{{parameter.naam_geen_spatie()}}herstel">X</button>
+                            <input type="range" name="{{parameter.naam}}" min="{{ parameter.min_waarde }}" max="{{ parameter.max_waarde }}" value="{{ parameter.laatste_waarde }}" class="slider" step="{{ parameter.stap }}" id="{{ parameter.naam }}Glijdendeinput">
+                            <label><span id="{{ parameter.naam}}links_output"></span></label>
+                            <label><span id="{{ parameter.naam}}rechts_output"></span> </label>
+                    {% elif parameter.type == "keuze" %}
+                            <label for="{{ parameter.naam}}">{{ parameter.naam }}</label><br>
+                            <button type="button" id="{{parameter.naam_geen_spatie()}}herstel">X</button>
+                            <select name="{{ parameter.naam }}" id="{{ parameter.naam}}_keuze">
+                              {%for keuze in parameter.keuzes%}
+                                  <option value="{{keuze}}">{{ keuze }}</option>
+                              {%endfor%}
+
+                            </select>
+                    {% endif %}
+                {%endfor%}
+                <div id="bereken_div"><input class="bereken" type="submit" value="bereken"> </div>
+            </form>
+        </div>
+    </div>
+   <br>
+    <div id="deel_onderaan">
+        {% if resultaat != None  %}
+            {%  if resultaat.moet_wachten() %}
+                <p id="wacht_bericht"> Even geduld. De server heeft het momenteel druk
+                    en u heeft recent veel berekeningen gevraagd. U moet nog
+                    <span id="wacht_tijd_teller">{{ resultaat.wachtijd }}</span>
+                    seconden wachten.
+                </p>
+            {% else %}
+                <p>het resultaat is berekend met deze door u ingegeven waarden: <br>
+                    {%for parameter in params%}
+                        {% if parameter.type == "standaard" %}
+                            <span>{{parameter.naam}} = {{ parameter.laatste_waarde }}{{ parameter.eenheid }} </span> <br>
+                        {% elif parameter.type == "plaats" %}
+                            {% if parameter.laatste_waarde_float() > 0 %}
+                                <span>{{parameter.naam}}: {{ parameter.laatste_waarde_float() }}{{ parameter.eenheid }} naar rechts </span> <br>
+                            {% elif parameter.laatste_waarde_float() < 0 %}
+                                <span>{{parameter.naam}}: {{(-1) * parameter.laatste_waarde_float() }}{{ parameter.eenheid }} naar links </span> <br>
+                            {% elif parameter.laatste_waarde_float() == 0 %}
+                                <span>{{parameter.naam}}: staat in het midden </span> <br>
+                            {% endif %}
+                        {% elif parameter.type == "keuze" %}
+                            <span>{{parameter.naam}}: {{ parameter.laatste_waarde }}{{ parameter.eenheid }} </span>
+                        {% endif %}
+                    {%endfor%}
+                </p>
+
+                        <img class="WeergaveResultaatAfbeelding" src="{{url_for('static', filename= resultaat.get_video_locatie() )}}" alt=
+                            "helaas kon er geen afbeelding van uw resultaat worden geladen" />
+                <br>
+                <a href="{{url_for('static', filename= resultaat.get_video_locatie() )}}" download>download</a>
+        {% endif %}
+        {% else %}
+            <p> U heeft nog geen berekeningen uitgevoerd op onze server. </p>
+        {% endif %}
+        {% for i in range(info.witruimte_onderaan) %}
+        <br>
+        {% endfor %}
+    </div>
+
+    <script>
+    {%for parameter in params%}
+        {% if parameter.type == "standaard" %}
+            let slider_{{ parameter.naam_geen_spatie() }} = document.getElementById("{{ parameter.naam }}Glijdendeinput");
+            let output_{{ parameter.naam_geen_spatie() }} = document.getElementById("{{ parameter.naam }}output");
+            output_{{ parameter.naam_geen_spatie() }}.innerHTML = String(slider_{{ parameter.naam_geen_spatie() }}.value) + "{{ parameter.eenheid }}";
+
+            slider_{{ parameter.naam_geen_spatie() }}.oninput = function() {
+                output_{{ parameter.naam_geen_spatie()}}.innerHTML = String(this.value) + "{{ parameter.eenheid }}";
+            }
+            let herstel_knop_{{parameter.naam_geen_spatie()}} = document.getElementById("{{parameter.naam_geen_spatie()}}herstel")
+            herstel_knop_{{parameter.naam_geen_spatie()}}.onclick = function() {
+                slider_{{ parameter.naam_geen_spatie() }}.value = {{ parameter.get_default() }}
+                output_{{ parameter.naam_geen_spatie() }}.innerHTML = {{ parameter.get_default() }} + "{{ parameter.eenheid }}";
+        }
+        {% elif parameter.type == "plaats" %}
+            let slider_{{ parameter.naam_geen_spatie() }} = document.getElementById("{{ parameter.naam }}Glijdendeinput");
+            let output_rechts_{{ parameter.naam_geen_spatie() }} = document.getElementById("{{ parameter.naam }}rechts_output");
+            let output_links_{{ parameter.naam_geen_spatie() }} = document.getElementById("{{ parameter.naam }}links_output");
+
+            output_rechts_{{ parameter.naam_geen_spatie()}}.innerHTML = "staat in het midden";
+            output_links_{{ parameter.naam_geen_spatie()}}.innerHTML = "";
+
+
+            slider_{{ parameter.naam_geen_spatie() }}.oninput = function() {
+                if (this.value > 0) {
+                    output_rechts_{{ parameter.naam_geen_spatie()}}.innerHTML = String(this.value) + "{{ parameter.eenheid }} naar rechts";
+                    output_links_{{ parameter.naam_geen_spatie()}}.innerHTML = "";
+                } else if(this.value < 0) {
+                    output_links_{{ parameter.naam_geen_spatie()}}.innerHTML = String((-1) * this.value) + "{{ parameter.eenheid }} naar links";
+                    output_rechts_{{ parameter.naam_geen_spatie()}}.innerHTML = "";
+                } else if (this.value ===0)
+                {
+                    output_rechts_{{ parameter.naam_geen_spatie()}}.innerHTML = "staat in het midden";
+                    output_links_{{ parameter.naam_geen_spatie()}}.innerHTML = "";
+                }
+
+            }
+            let herstel_knop_{{parameter.naam_geen_spatie()}} = document.getElementById("{{parameter.naam_geen_spatie()}}herstel")
+                herstel_knop_{{parameter.naam_geen_spatie()}}.onclick = function() {
+                    slider_{{ parameter.naam_geen_spatie() }}.value = {{ parameter.get_default() }}
+                    nieuwe_waarde = {{ parameter.get_default() }}
+                    if ( nieuwe_waarde > 0) {
+                        output_rechts_{{ parameter.naam_geen_spatie()}}.innerHTML = String(nieuwe_waarde) + "{{ parameter.eenheid }} naar rechts";
+                        output_links_{{ parameter.naam_geen_spatie()}}.innerHTML = "";
+                    } else if(nieuwe_waarde < 0) {
+                        output_links_{{ parameter.naam_geen_spatie()}}.innerHTML = String((-1) * nieuwe_waarde) + "{{ parameter.eenheid }} naar links";
+                        output_rechts_{{ parameter.naam_geen_spatie()}}.innerHTML = "";
+                    } else if (nieuwe_waarde ===0)
+                    {
+                        output_rechts_{{ parameter.naam_geen_spatie()}}.innerHTML = "staat in het midden";
+                        output_links_{{ parameter.naam_geen_spatie()}}.innerHTML = "";
+                    }
+                }
+        {% elif parameter.type == "keuze" %}
+            let select_{{ parameter.naam_geen_spatie() }} = document.getElementById("{{ parameter.naam }}_keuze");
+            let herstel_knop_{{parameter.naam_geen_spatie()}} = document.getElementById("{{parameter.naam_geen_spatie()}}herstel")
+                herstel_knop_{{parameter.naam_geen_spatie()}}.onclick = function() {
+                    select_{{ parameter.naam_geen_spatie()}}.value = "{{ parameter.keuzes[parameter.default] }}"
+                }
+        {% endif %}
+    {% endfor %}
+    let form =  document.getElementById("inputform")
+    form.onsubmit = function () {
+        let bereken_div = document.getElementById("bereken_div");
+        let deel_onderaan = document.getElementById("deel_onderaan");
+        bereken_div.innerHTML = "<p> even geduld uw berekeningen worden uitgevoerd </p>";
+        deel_onderaan.innerHTML = "";
+    }
+    {% if cookies %}
+        alert("Deze website maakt geruik van cookies. Er worden enkel funtionele cookies geplaatst.")
+    {% endif %}
+    {% if resultaat != None  %}
+    {%  if resultaat.moet_wachten() %}
+        wacht_teller_getal = {{ resultaat.wacht_tijd }}
+
+        var wacht_teller = setInterval(function() {
+            if (wacht_teller_getal > 1){
+                wacht_teller_getal = wacht_teller_getal - 1
+                teller_display = document.getElementById("wacht_tijd_teller")
+                teller_display.innerHTML = wacht_teller_getal
+                console.log("wachten")
+            }
+            else {
+                console.log("wacht over")
+                bericht = document.getElementById("wacht_bericht")
+                bericht.innerHTML = "U kunt opnieuw een berekening uitvoeren"
+            }
+        }, 1000);
+    {% endif %}
+    {% endif %}
+
+     </script>
+
+{% endblock %}
